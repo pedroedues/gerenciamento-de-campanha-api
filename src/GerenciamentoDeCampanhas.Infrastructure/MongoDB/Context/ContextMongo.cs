@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GerenciamentoDeCampanhas.Infrastructure.MongoDB.Setup
+namespace GerenciamentoDeCampanhas.Infrastructure.MongoDB.Context
 {
     public class ContextMongo : IContextMongo
     {
@@ -22,6 +22,7 @@ namespace GerenciamentoDeCampanhas.Infrastructure.MongoDB.Setup
 
         public IMongoCollection<T> GetCollection<T>(string collectionName)
         {
+            ConfigureMongo();
             return Database.GetCollection<T>(collectionName);
         }
 

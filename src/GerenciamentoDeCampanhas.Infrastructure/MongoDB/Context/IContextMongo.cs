@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace GerenciamentoDeCampanhas.Infrastructure.MongoDB.Setup
+namespace GerenciamentoDeCampanhas.Infrastructure.MongoDB.Context
 {
     public interface IContextMongo : IDisposable
     {
