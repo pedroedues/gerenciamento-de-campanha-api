@@ -53,7 +53,7 @@ Retorna detalhes da campanha com o ID especificado.
 ### POST /Campanha
 Cria uma nova campanha. Retorna o link único de acesso o Id da campanha criada
 
-#### Payload de Exemplo
+Payload de Exemplo
 ```json
 {
   "maximoDeCliques": 100,
@@ -67,7 +67,7 @@ Cria uma nova campanha. Retorna o link único de acesso o Id da campanha criada
 ### PUT /Campanha/{id}
 Atualiza os detalhes da campanha com o ID especificado.
 
-#### Payload de Exemplo
+Payload de Exemplo
 ```json
 {
   "maximoDeCliques": 150,
@@ -87,12 +87,19 @@ Atualiza os detalhes da campanha com o ID especificado.
 ### PUT /Campanha/Redirecionar
 Redireciona para uma URL da campanha com base no link de acesso fornecido.
 
-#### Payload de Exemplo
+Payload de Exemplo
 ```json
 {
   "linkDeAcesso": "http://linkDeAcessoDaCampanha"
 }
 ```
+
+## Demonstração de Funcionamento
+[Vídeo da Demonstração de Funcionamento](https://drive.google.com/file/d/1QZJ9OlnymG0t8XYWhZSChqDBgRbWLpHx/view?usp=sharing)
+
+## Testes Unitários
+Testes serão realizados utilizando xUnit
+🛠️ Construção em andamento 🛠️
 
 Contato
 -------
