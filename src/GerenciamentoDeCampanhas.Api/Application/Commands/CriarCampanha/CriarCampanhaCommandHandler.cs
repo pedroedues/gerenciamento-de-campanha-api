@@ -1,22 +1,39 @@
-﻿using System.Threading;
+﻿using GerenciamentoDeCampanhas.Api.Controllers;
+using GerenciamentoDeCampanhas.Domain.AggregatesModel.Entities;
+using GerenciamentoDeCampanhas.Infrastructure.MongoDB.Repository;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace GerenciamentoDeCampanhas.Api.Application.Commands.CriarCampanha
 {
-    public class CriarCampanhaCommandHandler : IRequestHandler<CriarCampanhaCommand>
+    public class CriarCampanhaCommandHandler : IRequestHandler<CriarCampanhaCommand, CriarCampanhaCommandResponse>
     {
-        public CriarCampanhaCommandHandler()
+        private readonly ICampanhaRepository _campanhaRepository;
+        private readonly ILogger<CampanhaController> _logger;
+
+        public CriarCampanhaCommandHandler(ICampanhaRepository campanhaRepository, ILogger<CampanhaController> logger)
         {
+            _campanhaRepository = campanhaRepository;
+            _logger = logger;
         }
 
-        public async Task<Unit> Handle(CriarCampanhaCommand request, CancellationToken cancellationToken)
+        public async Task<CriarCampanhaCommandResponse> Handle(CriarCampanhaCommand request, CancellationToken cancellationToken)
         {
-			throw new NotImplementedException();
+            try
+            {
+                var campanha = new CampanhaEntity(request.MaximoDeCliques);
+
+                campanha.AddLink(request.Links);
+
+                await _campanhaRepository.Inserir(campanha, cancellationToken);
+
+                return new(campanha.Id, campanha.LinkDeAcesso);
+            } catch(Exception ex)
+            {
+                _logger.LogError($"Erro ao persistir campanha. Exception {ex.Message}", JsonSerializer.Serialize(request));
+
+                throw;
+            }
         }
     }
 }

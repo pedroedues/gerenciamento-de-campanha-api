@@ -1,13 +1,12 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GerenciamentoDeCampanhas.Domain.AggregatesModel.ValueObjects;
+using MediatR;
 
 namespace GerenciamentoDeCampanhas.Api.Application.Commands.CriarCampanha
 {
-    public class CriarCampanhaCommand : IRequest
+    public class CriarCampanhaCommand : IRequest<CriarCampanhaCommandResponse>
     {
+        public int MaximoDeCliques { get; set; }
+
+        public IList<string> Links { get; set; }
     }
 }

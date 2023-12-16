@@ -1,9 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GerenciamentoDeCampanhas.Api.Application.Commands.CriarCampanha
 {
@@ -11,6 +6,22 @@ namespace GerenciamentoDeCampanhas.Api.Application.Commands.CriarCampanha
     {
         public CriarCampanhaCommandValidator()
         {
+            RuleFor(c => c.Links)
+                .Must(links => links.Any(string.IsNullOrWhiteSpace)  is false)
+                    .WithMessage("Nenhum link da campanha pode estar vazio")
+                .Must(NaoExisteLinkDuplicado)
+                    .WithMessage("Não pode haver urls duplicadas");
+
+            RuleFor(c => c.Links.Count)
+                .GreaterThanOrEqualTo(1)
+                .WithMessage("É preciso ter, ao menos, um link para cadastro da campanha");
+
+            RuleFor(c => c.MaximoDeCliques)
+                .GreaterThanOrEqualTo(1)
+                .WithMessage("O mínimo de cliques aceito por campanha é 1");
         }
+
+        private static bool NaoExisteLinkDuplicado(IList<string> links)
+            => links.Count == links.Distinct().Count();
     }
 }
