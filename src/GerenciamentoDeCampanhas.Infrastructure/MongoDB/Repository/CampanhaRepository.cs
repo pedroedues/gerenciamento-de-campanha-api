@@ -36,6 +36,17 @@ namespace GerenciamentoDeCampanhas.Infrastructure.MongoDB.Repository
             return result is not null;
         }
 
+        public bool ExisteLinkAcesso(string linkDeAcesso)
+        {
+            var filter = Builders<CampanhaEntity>.Filter;
+
+            var data = Dbset.Find(filter.Eq("LinkDeAcesso", linkDeAcesso));
+
+            var result = data.SingleOrDefault();
+
+            return result is not null;
+        }
+
         public async Task<bool> Inserir(CampanhaEntity campanha, CancellationToken ctx)
         {
             await Dbset.InsertOneAsync(campanha, null, ctx);
@@ -52,9 +63,13 @@ namespace GerenciamentoDeCampanhas.Infrastructure.MongoDB.Repository
             return await data.SingleOrDefaultAsync(ctx);
         }
 
-        public Task<CampanhaEntity> ObterTodas(CancellationToken ctx)
+        public async Task<CampanhaEntity> ObterPorLinkDeAcesso(string linkDeAcesso, CancellationToken ctx)
         {
-            throw new NotImplementedException();
+            var filter = Builders<CampanhaEntity>.Filter;
+
+            var data = await Dbset.FindAsync(filter.Eq("LinkDeAcesso", linkDeAcesso), cancellationToken: ctx);
+
+            return await data.SingleOrDefaultAsync(ctx);
         }
     }
 }

@@ -7,7 +7,8 @@ namespace GerenciamentoDeCampanhas.Infrastructure.MongoDB.Repository
         Task<bool> Inserir(CampanhaEntity campanha, CancellationToken ctx);
         Task<bool> Atualizar(CampanhaEntity campanha, CancellationToken ctx);
         Task<CampanhaEntity> ObterPeloId(string id, CancellationToken ctx);
+        Task<CampanhaEntity> ObterPorLinkDeAcesso(string linkDeAcesso, CancellationToken ctx);
+        bool ExisteLinkAcesso(string linkDeAcesso);
         bool Existe(string id);
-        Task<CampanhaEntity> ObterTodas(CancellationToken ctx);
     }
 }
