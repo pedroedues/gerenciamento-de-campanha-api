@@ -98,8 +98,8 @@ Payload de Exemplo
 [Vídeo da Demonstração de Funcionamento](https://drive.google.com/file/d/1QZJ9OlnymG0t8XYWhZSChqDBgRbWLpHx/view?usp=sharing)
 
 ## Testes Unitários
-Testes serão realizados utilizando xUnit
-🛠️ Construção em andamento 🛠️
+**🛠️ Construção em andamento 🛠️**
+> Testes serão realizados utilizando xUnit
 
 Contato
 -------
