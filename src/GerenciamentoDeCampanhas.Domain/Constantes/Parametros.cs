@@ -4,8 +4,8 @@
     {
         public static class MongoDB
         {
-            public static string ConnectionString = "";
-            public static string Database = "";
+            public static string ConnectionString = Environment.GetEnvironmentVariable("MongoDbConnection");
+            public static string Database = "Campanhas-MongoDB";
         }
 
     }
