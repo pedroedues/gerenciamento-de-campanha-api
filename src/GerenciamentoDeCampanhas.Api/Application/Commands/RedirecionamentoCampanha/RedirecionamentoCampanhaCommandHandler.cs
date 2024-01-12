@@ -23,10 +23,17 @@ namespace GerenciamentoDeCampanhas.Api.Application.Commands.RedirecionamentoCamp
             try
             {
                 var campanha = await _campanhaRepository.ObterPorLinkDeAcesso(request.LinkDeAcesso, cancellationToken);
+                var chegouLimite = campanha.Links.Any(c => c.CliquesRecebidos < campanha.MaximoDeCliques);
+                if (chegouLimite)
+                {
+                    foreach (var link in campanha.Links)
+                        link.ZerarCliques();
+                }
 
                 var linkRedirecionamento = ObterLinkDeRedirecionamentoAindaNaoUsado(campanha);
 
-                IncrementarCliquesEmLinkSelecionado(campanha, linkRedirecionamento);
+                if (chegouLimite is false)
+                    IncrementarCliquesEmLinkSelecionado(campanha, linkRedirecionamento);
 
                 await _campanhaRepository.Atualizar(campanha, cancellationToken);
 

@@ -63,6 +63,15 @@ namespace GerenciamentoDeCampanhas.Infrastructure.MongoDB.Repository
             return await data.SingleOrDefaultAsync(ctx);
         }
 
+        public async Task<IEnumerable<CampanhaEntity>> ObterTodos(CancellationToken ctx)
+        {
+            var filter = Builders<CampanhaEntity>.Filter.Empty;
+
+            var data = await Dbset.FindAsync(filter, cancellationToken: ctx);
+
+            return await data.ToListAsync(ctx);
+        }
+
         public async Task<CampanhaEntity> ObterPorLinkDeAcesso(string linkDeAcesso, CancellationToken ctx)
         {
             var filter = Builders<CampanhaEntity>.Filter;

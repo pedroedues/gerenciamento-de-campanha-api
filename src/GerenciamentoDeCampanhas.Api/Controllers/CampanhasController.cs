@@ -63,6 +63,16 @@ namespace GerenciamentoDeCampanhas.Api.Controllers
             return NoContent();
         }
 
+        [HttpGet()]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<CampanhaResponseModel>))]
+        public async Task<ActionResult> OberTodos(
+            CancellationToken ctx)
+        {
+            var campanhasResponse = await _repository.ObterTodos(ctx);
+
+            return Ok(campanhasResponse);
+        }
+        
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(CampanhaResponseModel))]
         public async Task<ActionResult> OberPorId(
