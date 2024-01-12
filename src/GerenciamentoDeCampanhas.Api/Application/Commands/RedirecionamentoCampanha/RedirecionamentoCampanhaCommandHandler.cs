@@ -23,7 +23,7 @@ namespace GerenciamentoDeCampanhas.Api.Application.Commands.RedirecionamentoCamp
             try
             {
                 var campanha = await _campanhaRepository.ObterPorLinkDeAcesso(request.LinkDeAcesso, cancellationToken);
-                var chegouLimite = campanha.Links.Any(c => c.CliquesRecebidos < campanha.MaximoDeCliques);
+                var chegouLimite = campanha.Links.Any(c => c.CliquesRecebidos < campanha.MaximoDeCliques) is false;
                 if (chegouLimite)
                 {
                     foreach (var link in campanha.Links)
