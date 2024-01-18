@@ -4,7 +4,7 @@
     {
         public static class MongoDB
         {
-            public static string ConnectionString = "mongodb+srv://campanha-user-dev:SPQflWt66TtZBEQb@aeon-database.egposui.mongodb.net/";
+            public static string ConnectionString = Environment.GetEnvironmentVariable("MongoDbConnection")!;
             public static string Database = "Campanhas-MongoDB";
         }
 
