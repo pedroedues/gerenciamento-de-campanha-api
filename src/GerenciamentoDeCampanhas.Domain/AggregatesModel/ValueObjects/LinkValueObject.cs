@@ -20,5 +20,8 @@
 
         public void IncrementarCliques(int cliquesRecebidos = 1)
             => CliquesRecebidos += cliquesRecebidos;
+        
+        public void ZerarCliques()
+            => CliquesRecebidos = 0;
     }
 }

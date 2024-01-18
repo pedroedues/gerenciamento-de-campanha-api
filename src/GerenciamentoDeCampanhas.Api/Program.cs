@@ -43,16 +43,30 @@ builder.Services.AddTransient<IValidator<CriarCampanhaCommand>, CriarCampanhaCom
 builder.Services.AddTransient<IValidator<AtualizarCampanhaCommand>, AtualizarCampanhaCommandValidator>();
 builder.Services.AddTransient<IValidator<RedirecionamentoCampanhaCommand>, RedirecionamentoCampanhaCommandValidator>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOriginPolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowAnyOriginPolicy");
 
 app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Campanhas API V1");
+});
 
 app.UseHttpsRedirection();
 
